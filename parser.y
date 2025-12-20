@@ -14,7 +14,8 @@
 %token <id> IDENT
 %token INT FLOAT VOID
 %token LPAREN RPAREN
-%token COMMA SEMICOLON
+%token COMMA SEMICOLON 
+%token LBRACE RBRACE
 
 %start program
 
@@ -30,8 +31,11 @@
             
     function
         : type_spec IDENT LPAREN parameter_list RPAREN SEMICOLON
+        | type_spec IDENT LPAREN parameter_list RPAREN compound_stmt
         | error SEMICOLON
-            { yyerror("Invalid function declaration"); }
+            { yyerror("Invalid function declaration"); yyerrok; }
+        | error compound_stmt
+            { yyerror("Invalid function definition"); yyerrok; }
         ;
     
     type_spec
@@ -44,12 +48,14 @@
         : %empty
         | parameter
         | parameter_list COMMA parameter
-        | error
-            { yyerror("Invalid parameter declaration") }
         ;
     
     parameter
         : type_spec IDENT
+        ;
+    
+    compound_stmt
+        : LBRACE RBRACE
         ;
 %%
 

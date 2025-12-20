@@ -14,6 +14,8 @@
 ")"         { return  RPAREN; }
 ","         { return COMMA; }
 ";"         { return SEMICOLON; }
+"{"         { return LBRACE; }
+"}"         { return RBRACE; }
 [a-zA-Z_][a-zA-Z_0-9]*  {yylval.id = strdup(yytext); return IDENT;}
 [ \t\n]+     {}
 .           {printf("Unknown Character: '%c'\n", yylineno, yytext[0]);}

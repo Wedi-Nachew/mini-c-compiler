@@ -16,9 +16,10 @@
 ";"         { return SEMICOLON; }
 "{"         { return LBRACE; }
 "}"         { return RBRACE; }
+"return"    { return RETURN; }
 [a-zA-Z_][a-zA-Z_0-9]*  {yylval.id = strdup(yytext); return IDENT;}
 [ \t\n]+     {}
-.           {printf("Unknown Character: '%c'\n", yylineno, yytext[0]);}
+.           {fprintf(stderr, "Line %d:Unkown character '%c'\n", yylineno, yytext[0]); }
 %%
 
 int yywrap() {

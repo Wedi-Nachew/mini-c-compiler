@@ -63,7 +63,8 @@ extern int yydebug;
     COMMA = 264,                   /* COMMA  */
     SEMICOLON = 265,               /* SEMICOLON  */
     LBRACE = 266,                  /* LBRACE  */
-    RBRACE = 267                   /* RBRACE  */
+    RBRACE = 267,                  /* RBRACE  */
+    RETURN = 268                   /* RETURN  */
   };
   typedef enum yytokentype yytoken_kind_t;
 #endif
@@ -76,7 +77,7 @@ union YYSTYPE
 
     char *id;
 
-#line 80 "parser.tab.h"
+#line 81 "parser.tab.h"
 
 };
 typedef union YYSTYPE YYSTYPE;

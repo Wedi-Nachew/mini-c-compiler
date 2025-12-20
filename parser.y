@@ -16,6 +16,7 @@
 %token LPAREN RPAREN
 %token COMMA SEMICOLON 
 %token LBRACE RBRACE
+%token RETURN
 
 %start program
 
@@ -55,7 +56,21 @@
         ;
     
     compound_stmt
-        : LBRACE RBRACE
+        : LBRACE stmt_list RBRACE
+        ;
+    
+    stmt_list
+        : stmt
+        | stmt_list stmt
+        ;
+    
+    stmt
+        : SEMICOLON
+        | return_stmt
+        ;
+    
+    return_stmt
+        : RETURN SEMICOLON
         ;
 %%
 

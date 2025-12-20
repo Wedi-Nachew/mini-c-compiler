@@ -1,3 +1,9 @@
-void main() {}
-int add(int a) {}
-float foo() {}
+void main() {
+    ;
+    return;
+}
+
+int foo() {
+    ;
+    ;
+}

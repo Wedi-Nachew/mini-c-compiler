@@ -1,3 +1,4 @@
-void main( {}
 void main() {
-void main() }
+    return 42;   
+    x = 1;   
+}

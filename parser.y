@@ -9,20 +9,25 @@
 
 %union{
     char *id;
+    int  int_val;
+    float float_val;
 }
 
 %token <id> IDENT
+%token <int_val> INT_LITERAL
+%token <float_val> FLOAT_LITERAL
 %token INT FLOAT VOID
 %token LPAREN RPAREN
 %token COMMA SEMICOLON 
 %token LBRACE RBRACE
 %token RETURN
+%token ASSIGN
 
 %start program
 
 %%
     program
-        : function_list
+        : function_list { printf("Parser finished successfully!\n");}
         ;
     
     function_list
@@ -60,22 +65,40 @@
         ;
     
     stmt_list
-        : stmt
+        : %empty
+        | stmt
         | stmt_list stmt
         ;
     
     stmt
         : SEMICOLON
         | return_stmt
+        | variable_decl_stmt
+        | assign_stmt
+        | error SEMICOLON
+            { yyerror("Invalid statement"); yyerrok; }
         ;
     
     return_stmt
         : RETURN SEMICOLON
         ;
+    
+    variable_decl_stmt
+        : type_spec IDENT SEMICOLON
+        ;
+    
+    assign_stmt
+        : IDENT ASSIGN expr SEMICOLON
+        ;
+    
+    expr
+        : IDENT
+        | INT_LITERAL
+        | FLOAT_LITERAL
 %%
 
 int main() {
-    printf("Compiler Started\n");
+    printf("Parser started parsing\n");
     yyparse();
 }
 

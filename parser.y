@@ -16,12 +16,16 @@
 %token <id> IDENT
 %token <int_val> INT_LITERAL
 %token <float_val> FLOAT_LITERAL
+
 %token INT FLOAT VOID
+
 %token LPAREN RPAREN
 %token COMMA SEMICOLON 
 %token LBRACE RBRACE
 %token RETURN
+
 %token ASSIGN
+%token PLUS MINUS STAR SLASH
 
 %start program
 
@@ -92,9 +96,27 @@
         ;
     
     expr
+        : additive_expr 
+        ;
+    
+    additive_expr
+        : additive_expr PLUS multiplicative_expr
+        | additive_expr MINUS multiplicative_expr
+        | multiplicative_expr
+        ;
+    
+    multiplicative_expr
+        : multiplicative_expr STAR primary_expr
+        | multiplicative_expr SLASH primary_expr
+        | primary_expr
+        ;
+    
+    primary_expr
         : IDENT
         | INT_LITERAL
         | FLOAT_LITERAL
+        | RPAREN expr LPAREN
+        ;
 %%
 
 int main() {

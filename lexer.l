@@ -30,6 +30,16 @@
 "for"       { return FOR; }
 "continue"  { return CONTINUE; }
 "break"     { return BREAK; }
+"||"        { return OR; }
+"&&"        { return AND; }
+"!"         { return NOT; }
+"=="        { return EQ; }
+"!="        { return NEQ; }
+"<"         { return LT; }
+"<="        { return LEQ; }
+">"         { return GT; }
+">="        { return GEQ; }
+
 [a-zA-Z_][a-zA-Z_0-9]*  {yylval.id = strdup(yytext); return IDENT; }
 [0-9]*\.[0-9]+          {yylval.float_val = atof(yytext); return FLOAT_LITERAL; }
 [0-9]+                  {yylval.int_val = atoi(yytext); return INT_LITERAL; }

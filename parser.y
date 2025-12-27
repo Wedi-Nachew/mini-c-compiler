@@ -30,6 +30,9 @@
 
 %token ASSIGN
 %token PLUS MINUS STAR SLASH
+%token LT GT LE GE EQ NEQ
+%token AND OR NOT
+
 
 %start program
 
@@ -122,9 +125,38 @@
         ;
     
     expr
-        : additive_expr 
+        : assignment_expr 
         ;
     
+    assignment_expr
+        : IDENT ASSIGN assignment_expr
+        | logical_or_expr
+        ;
+
+    logical_or_expr
+        : logical_or_expr OR logical_and_expr
+        | logical_and_expr
+        ;
+
+    logical_and_expr
+        : logical_and_expr AND equality_expr
+        | equality_expr
+        ;
+    
+    equality_expr
+        : equality_expr EQ relational_expr
+        | equality_expr NEQ relational_expr
+        | relational_expr
+        ;
+    
+    relational_expr
+        : relational_expr LT additive_expr
+        | relational_expr GT additive_expr
+        | relational_expr LE additive_expr
+        | relational_expr GE additive_expr
+        | additive_expr
+        ;
+
     additive_expr
         : additive_expr PLUS multiplicative_expr
         | additive_expr MINUS multiplicative_expr
@@ -132,8 +164,14 @@
         ;
     
     multiplicative_expr
-        : multiplicative_expr STAR primary_expr
-        | multiplicative_expr SLASH primary_expr
+        : multiplicative_expr STAR unary_expr
+        | multiplicative_expr SLASH unary_expr
+        | unary_expr
+        ;
+    
+    unary_expr
+        : MINUS unary_expr
+        | NOT unary_expr
         | primary_expr
         ;
     
@@ -141,7 +179,7 @@
         : IDENT
         | INT_LITERAL
         | FLOAT_LITERAL
-        | RPAREN expr LPAREN
+        | LPAREN expr RPAREN
         ;
 
     while_stmt

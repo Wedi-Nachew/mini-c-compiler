@@ -67,7 +67,17 @@ extern int yydebug;
     LBRACE = 268,                  /* LBRACE  */
     RBRACE = 269,                  /* RBRACE  */
     RETURN = 270,                  /* RETURN  */
-    ASSIGN = 271                   /* ASSIGN  */
+    IF = 271,                      /* IF  */
+    ELSEIF = 272,                  /* ELSEIF  */
+    ELSE = 273,                    /* ELSE  */
+    WHILE = 274,                   /* WHILE  */
+    DO = 275,                      /* DO  */
+    FOR = 276,                     /* FOR  */
+    ASSIGN = 277,                  /* ASSIGN  */
+    PLUS = 278,                    /* PLUS  */
+    MINUS = 279,                   /* MINUS  */
+    STAR = 280,                    /* STAR  */
+    SLASH = 281                    /* SLASH  */
   };
   typedef enum yytokentype yytoken_kind_t;
 #endif
@@ -82,7 +92,7 @@ union YYSTYPE
     int  int_val;
     float float_val;
 
-#line 86 "parser.tab.h"
+#line 96 "parser.tab.h"
 
 };
 typedef union YYSTYPE YYSTYPE;

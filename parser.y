@@ -26,6 +26,7 @@
 %token RETURN
 %token IF ELSEIF ELSE
 %token WHILE DO FOR
+%token CONTINUE BREAK
 
 %token ASSIGN
 %token PLUS MINUS STAR SLASH
@@ -99,6 +100,8 @@
         | while_stmt
         | do_while_stmt
         | for_stmt
+        | continue_stmt
+        | break_stmt
         ;
     
     compound_stmt
@@ -155,6 +158,14 @@
     opt_expr
         : %empty
         | expr
+        ;
+    
+    continue_stmt
+        : CONTINUE SEMICOLON
+        ;
+    
+    break_stmt
+        : BREAK SEMICOLON
         ;
 %%
 

@@ -39,6 +39,8 @@
 "<="        { return LEQ; }
 ">"         { return GT; }
 ">="        { return GEQ; }
+"++"        { return INC; }
+"--"        { return DEC; }
 
 [a-zA-Z_][a-zA-Z_0-9]*  {yylval.id = strdup(yytext); return IDENT; }
 [0-9]*\.[0-9]+          {yylval.float_val = atof(yytext); return FLOAT_LITERAL; }

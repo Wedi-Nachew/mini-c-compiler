@@ -110,6 +110,7 @@
 
     return_stmt
         : RETURN SEMICOLON
+        | RETURN expr SEMICOLON
         ;
     
     variable_decl_stmt

@@ -177,6 +177,7 @@
     
     primary_expr
         : IDENT
+        | IDENT LPAREN opt_arg_list RPAREN
         | INT_LITERAL
         | FLOAT_LITERAL
         | LPAREN expr RPAREN
@@ -205,6 +206,16 @@
     
     break_stmt
         : BREAK SEMICOLON
+        ;
+
+    arg_list
+        : expr
+        | arg_list COMMA expr
+        ;
+    
+    opt_arg_list
+        : %empty
+        | arg_list
         ;
 %%
 

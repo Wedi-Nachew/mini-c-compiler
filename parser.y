@@ -5,10 +5,10 @@
     void yyerror(const char *s);
     int yylex(void);
     extern int yylineno;
-    extern char *yytext; /* current token text for error messages */
+    extern char *yytext; 
 %}
 
-%define parse.error verbose /* ask bison/yacc to produce richer syntax errors */
+%define parse.error verbose 
 
 %union{
     char *id;
@@ -247,6 +247,5 @@ int main() {
 }
 
 void yyerror(const char *s) {
-    /* include yytext to highlight the unexpected token when available */
     fprintf(stderr, "Line %d near '%s': %s\n", yylineno, yytext ? yytext : "<eof>", s);
 }

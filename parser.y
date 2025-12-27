@@ -25,6 +25,7 @@
 
 %token RETURN
 %token IF ELSEIF ELSE
+%token WHILE DO
 
 %token ASSIGN
 %token PLUS MINUS STAR SLASH
@@ -95,8 +96,9 @@
         | assign_stmt
         | variable_decl_stmt
         | compound_stmt
+        | while_stmt
+        | do_while_stmt
         ;
-    
     
     compound_stmt
         : LBRACE stmt_list RBRACE
@@ -136,8 +138,14 @@
         | FLOAT_LITERAL
         | RPAREN expr LPAREN
         ;
-    
-    
+
+    while_stmt
+        : WHILE LPAREN expr RPAREN stmt
+        ;
+
+    do_while_stmt
+        : DO stmt WHILE LPAREN expr RPAREN SEMICOLON
+        ;
 
 %%
 

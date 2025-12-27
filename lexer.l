@@ -26,6 +26,7 @@
 "else if"   {return ELSEIF; }
 "else"      { return ELSE; }
 "while"     { return WHILE; }
+"do"        { return DO; }
 [a-zA-Z_][a-zA-Z_0-9]*  {yylval.id = strdup(yytext); return IDENT; }
 [0-9]*\.[0-9]+          {yylval.float_val = atof(yytext); return FLOAT_LITERAL; }
 [0-9]+                  {yylval.int_val = atoi(yytext); return INT_LITERAL; }

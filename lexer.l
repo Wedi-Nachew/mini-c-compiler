@@ -17,11 +17,6 @@
 "{"         { return LBRACE; }
 "}"         { return RBRACE; }
 "return"    { return RETURN; }
-"="         { return ASSIGN; }
-"+"         { return PLUS; }
-"-"         { return MINUS; }
-"*"         { return STAR; }
-"/"         { return SLASH; }
 "if"        { return IF; }
 "else if"   {return ELSEIF; }
 "else"      { return ELSE; }
@@ -41,6 +36,15 @@
 ">="        { return GEQ; }
 "++"        { return INC; }
 "--"        { return DEC; }
+"+="        {return ADD_ASSIGN; }
+"-="        {return SUB_ASSIGN; }
+"*="        {return MUL_ASSIGN; }
+"/="        {return DIV_ASSIGN; }
+"="         { return ASSIGN; }
+"+"         { return PLUS; }
+"-"         { return MINUS; }
+"*"         { return STAR; }
+"/"         { return SLASH; }
 
 [a-zA-Z_][a-zA-Z_0-9]*  {yylval.id = strdup(yytext); return IDENT; }
 [0-9]*\.[0-9]+          {yylval.float_val = atof(yytext); return FLOAT_LITERAL; }

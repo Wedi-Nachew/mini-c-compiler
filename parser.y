@@ -5,7 +5,10 @@
     void yyerror(const char *s);
     int yylex(void);
     extern int yylineno;
+    extern char *yytext; /* current token text for error messages */
 %}
+
+%define parse.error verbose /* ask bison/yacc to produce richer syntax errors */
 
 %union{
     char *id;
@@ -28,7 +31,7 @@
 %token WHILE DO FOR
 %token CONTINUE BREAK
 
-%token ASSIGN
+%token ASSIGN ADD_ASSIGN SUB_ASSIGN MUL_ASSIGN DIV_ASSIGN
 %token PLUS MINUS STAR SLASH
 %token LT GT LE GE EQ NEQ
 %token AND OR NOT
@@ -50,6 +53,10 @@
     function
         : type_spec IDENT LPAREN parameter_list RPAREN SEMICOLON
         | type_spec IDENT LPAREN parameter_list RPAREN compound_stmt
+        | type_spec IDENT LPAREN error RPAREN SEMICOLON
+            { yyerror("Malformed parameter list in function declaration"); yyerrok; }
+        | type_spec IDENT LPAREN error RPAREN compound_stmt
+            { yyerror("Malformed parameter list in function definition"); yyerrok; }
         | error SEMICOLON
             { yyerror("Invalid function declaration"); yyerrok; }
         | error compound_stmt
@@ -110,6 +117,8 @@
     
     compound_stmt
         : LBRACE stmt_list RBRACE
+        | LBRACE error RBRACE
+            { yyerror("Error inside block; skipped to '}'"); yyerrok; }
         ;
 
     return_stmt
@@ -131,6 +140,10 @@
     
     assignment_expr
         : IDENT ASSIGN assignment_expr
+        | IDENT ADD_ASSIGN assignment_expr
+        | IDENT SUB_ASSIGN assignment_expr
+        | IDENT MUL_ASSIGN assignment_expr
+        | IDENT DIV_ASSIGN assignment_expr
         | logical_or_expr
         ;
 
@@ -234,5 +247,6 @@ int main() {
 }
 
 void yyerror(const char *s) {
-    fprintf(stderr, "Line %d: %s\n", yylineno, s);
+    /* include yytext to highlight the unexpected token when available */
+    fprintf(stderr, "Line %d near '%s': %s\n", yylineno, yytext ? yytext : "<eof>", s);
 }

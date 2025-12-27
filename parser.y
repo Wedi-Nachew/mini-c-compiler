@@ -25,7 +25,7 @@
 
 %token RETURN
 %token IF ELSEIF ELSE
-%token WHILE DO
+%token WHILE DO FOR
 
 %token ASSIGN
 %token PLUS MINUS STAR SLASH
@@ -98,6 +98,7 @@
         | compound_stmt
         | while_stmt
         | do_while_stmt
+        | for_stmt
         ;
     
     compound_stmt
@@ -147,6 +148,14 @@
         : DO stmt WHILE LPAREN expr RPAREN SEMICOLON
         ;
 
+    for_stmt
+        : FOR LPAREN opt_expr SEMICOLON opt_expr SEMICOLON opt_expr RPAREN stmt
+        ;
+    
+    opt_expr
+        : %empty
+        | expr
+        ;
 %%
 
 int main() {

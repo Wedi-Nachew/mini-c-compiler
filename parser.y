@@ -32,6 +32,7 @@
 %token PLUS MINUS STAR SLASH
 %token LT GT LE GE EQ NEQ
 %token AND OR NOT
+%token DEC INC
 
 
 %start program
@@ -172,7 +173,15 @@
     unary_expr
         : MINUS unary_expr
         | NOT unary_expr
-        | primary_expr
+        | INC unary_expr
+        | DEC unary_expr
+        | postfix_expr
+        ;
+    
+    postfix_expr
+        : primary_expr
+        | postfix_expr INC
+        | postfix_expr DEC
         ;
     
     primary_expr

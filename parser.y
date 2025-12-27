@@ -22,7 +22,9 @@
 %token LPAREN RPAREN
 %token COMMA SEMICOLON 
 %token LBRACE RBRACE
+
 %token RETURN
+%token IF ELSEIF ELSE
 
 %token ASSIGN
 %token PLUS MINUS STAR SLASH
@@ -64,10 +66,6 @@
         : type_spec IDENT
         ;
     
-    compound_stmt
-        : LBRACE stmt_list RBRACE
-        ;
-    
     stmt_list
         : %empty
         | stmt
@@ -75,14 +73,35 @@
         ;
     
     stmt
-        : SEMICOLON
-        | return_stmt
-        | variable_decl_stmt
-        | assign_stmt
+        : matched_stmt
+        | unmatched_stmt
         | error SEMICOLON
             { yyerror("Invalid statement"); yyerrok; }
         ;
     
+    matched_stmt
+        : other_stmt
+        | IF LPAREN expr RPAREN matched_stmt ELSE matched_stmt
+        ;
+    
+    unmatched_stmt
+        : IF LPAREN expr RPAREN stmt
+        | IF LPAREN expr RPAREN matched_stmt ELSE unmatched_stmt 
+        ;
+
+    other_stmt
+        : SEMICOLON
+        | return_stmt
+        | assign_stmt
+        | variable_decl_stmt
+        | compound_stmt
+        ;
+    
+    
+    compound_stmt
+        : LBRACE stmt_list RBRACE
+        ;
+
     return_stmt
         : RETURN SEMICOLON
         ;
@@ -117,6 +136,9 @@
         | FLOAT_LITERAL
         | RPAREN expr LPAREN
         ;
+    
+    
+
 %%
 
 int main() {

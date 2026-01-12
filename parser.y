@@ -106,6 +106,7 @@
 
     other_stmt
         : SEMICOLON
+        | expr SEMICOLON
         | return_stmt
         | assign_stmt
         | variable_decl_stmt

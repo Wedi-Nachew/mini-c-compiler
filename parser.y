@@ -14,11 +14,13 @@
     char *id;
     int  int_val;
     float float_val;
+    char *str_val;
 }
 
 %token <id> IDENT
 %token <int_val> INT_LITERAL
 %token <float_val> FLOAT_LITERAL
+%token <str_val> STRING_LITERAL
 
 %token INT FLOAT VOID
 
@@ -27,13 +29,13 @@
 %token LBRACE RBRACE
 
 %token RETURN
-%token IF ELSEIF ELSE
+%token IF ELSE
 %token WHILE DO FOR
 %token CONTINUE BREAK
 
 %token ASSIGN ADD_ASSIGN SUB_ASSIGN MUL_ASSIGN DIV_ASSIGN
 %token PLUS MINUS STAR SLASH
-%token LT GT LE GE EQ NEQ
+%token LT GT LEQ GEQ EQ NEQ
 %token AND OR NOT
 %token DEC INC
 
@@ -166,8 +168,8 @@
     relational_expr
         : relational_expr LT additive_expr
         | relational_expr GT additive_expr
-        | relational_expr LE additive_expr
-        | relational_expr GE additive_expr
+        | relational_expr LEQ additive_expr
+        | relational_expr GEQ additive_expr
         | additive_expr
         ;
 
@@ -202,6 +204,7 @@
         | IDENT LPAREN opt_arg_list RPAREN
         | INT_LITERAL
         | FLOAT_LITERAL
+        | STRING_LITERAL
         | LPAREN expr RPAREN
         ;
 

@@ -10,15 +10,8 @@
 "int"       { return INT; }
 "float"     { return FLOAT; }
 "void"      { return VOID; }
-"("         { return LPAREN; }
-")"         { return  RPAREN; }
-","         { return COMMA; }
-";"         { return SEMICOLON; }
-"{"         { return LBRACE; }
-"}"         { return RBRACE; }
 "return"    { return RETURN; }
 "if"        { return IF; }
-"else if"   {return ELSEIF; }
 "else"      { return ELSE; }
 "while"     { return WHILE; }
 "do"        { return DO; }
@@ -27,30 +20,37 @@
 "break"     { return BREAK; }
 "||"        { return OR; }
 "&&"        { return AND; }
-"!"         { return NOT; }
-"=="        { return EQ; }
 "!="        { return NEQ; }
-"<"         { return LT; }
+"=="        { return EQ; }
 "<="        { return LEQ; }
-">"         { return GT; }
 ">="        { return GEQ; }
+"<"         { return LT; }
+">"         { return GT; }
 "++"        { return INC; }
 "--"        { return DEC; }
-"+="        {return ADD_ASSIGN; }
-"-="        {return SUB_ASSIGN; }
-"*="        {return MUL_ASSIGN; }
-"/="        {return DIV_ASSIGN; }
+"+="        { return ADD_ASSIGN; }
+"-="        { return SUB_ASSIGN; }
+"*="        { return MUL_ASSIGN; }
+"/="        { return DIV_ASSIGN; }
 "="         { return ASSIGN; }
 "+"         { return PLUS; }
 "-"         { return MINUS; }
 "*"         { return STAR; }
 "/"         { return SLASH; }
+"("         { return LPAREN; }
+")"         { return RPAREN; }
+"{"         { return LBRACE; }
+"}"         { return RBRACE; }
+","         { return COMMA; }
+";"         { return SEMICOLON; }
 
-[a-zA-Z_][a-zA-Z_0-9]*  {yylval.id = strdup(yytext); return IDENT; }
-[0-9]*\.[0-9]+          {yylval.float_val = atof(yytext); return FLOAT_LITERAL; }
-[0-9]+                  {yylval.int_val = atoi(yytext); return INT_LITERAL; }
-[ \t\n]+     {}
-.           {fprintf(stderr, "Line %d:Unkown character '%c'\n", yylineno, yytext[0]); }
+[0-9]*\.[0-9]+          { yylval.float_val = atof(yytext); return FLOAT_LITERAL; }
+[0-9]+                  { yylval.int_val = atoi(yytext); return INT_LITERAL; }
+\"([^\\\n]|(\\.))*\"    { yylval.str_val = strdup(yytext); return STRING_LITERAL; }
+[a-zA-Z_][a-zA-Z_0-9]*  { yylval.id = strdup(yytext); return IDENT; }
+
+[ \t\n]+                {}
+.                    { fprintf(stderr, "Line %d: Unknown character '%c'\n", yylineno, yytext[0]); }
 %%
 
 int yywrap() {

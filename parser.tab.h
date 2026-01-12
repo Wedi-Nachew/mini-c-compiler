@@ -57,27 +57,44 @@ extern int yydebug;
     IDENT = 258,                   /* IDENT  */
     INT_LITERAL = 259,             /* INT_LITERAL  */
     FLOAT_LITERAL = 260,           /* FLOAT_LITERAL  */
-    INT = 261,                     /* INT  */
-    FLOAT = 262,                   /* FLOAT  */
-    VOID = 263,                    /* VOID  */
-    LPAREN = 264,                  /* LPAREN  */
-    RPAREN = 265,                  /* RPAREN  */
-    COMMA = 266,                   /* COMMA  */
-    SEMICOLON = 267,               /* SEMICOLON  */
-    LBRACE = 268,                  /* LBRACE  */
-    RBRACE = 269,                  /* RBRACE  */
-    RETURN = 270,                  /* RETURN  */
-    IF = 271,                      /* IF  */
-    ELSEIF = 272,                  /* ELSEIF  */
+    STRING_LITERAL = 261,          /* STRING_LITERAL  */
+    INT = 262,                     /* INT  */
+    FLOAT = 263,                   /* FLOAT  */
+    VOID = 264,                    /* VOID  */
+    LPAREN = 265,                  /* LPAREN  */
+    RPAREN = 266,                  /* RPAREN  */
+    COMMA = 267,                   /* COMMA  */
+    SEMICOLON = 268,               /* SEMICOLON  */
+    LBRACE = 269,                  /* LBRACE  */
+    RBRACE = 270,                  /* RBRACE  */
+    RETURN = 271,                  /* RETURN  */
+    IF = 272,                      /* IF  */
     ELSE = 273,                    /* ELSE  */
     WHILE = 274,                   /* WHILE  */
     DO = 275,                      /* DO  */
     FOR = 276,                     /* FOR  */
-    ASSIGN = 277,                  /* ASSIGN  */
-    PLUS = 278,                    /* PLUS  */
-    MINUS = 279,                   /* MINUS  */
-    STAR = 280,                    /* STAR  */
-    SLASH = 281                    /* SLASH  */
+    CONTINUE = 277,                /* CONTINUE  */
+    BREAK = 278,                   /* BREAK  */
+    ASSIGN = 279,                  /* ASSIGN  */
+    ADD_ASSIGN = 280,              /* ADD_ASSIGN  */
+    SUB_ASSIGN = 281,              /* SUB_ASSIGN  */
+    MUL_ASSIGN = 282,              /* MUL_ASSIGN  */
+    DIV_ASSIGN = 283,              /* DIV_ASSIGN  */
+    PLUS = 284,                    /* PLUS  */
+    MINUS = 285,                   /* MINUS  */
+    STAR = 286,                    /* STAR  */
+    SLASH = 287,                   /* SLASH  */
+    LT = 288,                      /* LT  */
+    GT = 289,                      /* GT  */
+    LEQ = 290,                     /* LEQ  */
+    GEQ = 291,                     /* GEQ  */
+    EQ = 292,                      /* EQ  */
+    NEQ = 293,                     /* NEQ  */
+    AND = 294,                     /* AND  */
+    OR = 295,                      /* OR  */
+    NOT = 296,                     /* NOT  */
+    DEC = 297,                     /* DEC  */
+    INC = 298                      /* INC  */
   };
   typedef enum yytokentype yytoken_kind_t;
 #endif
@@ -86,13 +103,14 @@ extern int yydebug;
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 union YYSTYPE
 {
-#line 10 "parser.y"
+#line 13 "parser.y"
 
     char *id;
     int  int_val;
     float float_val;
+    char *str_val;
 
-#line 96 "parser.tab.h"
+#line 114 "parser.tab.h"
 
 };
 typedef union YYSTYPE YYSTYPE;

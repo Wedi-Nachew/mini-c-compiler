@@ -1,4 +1,1 @@
-void main() {
-    return 42;   
-    x = 1;   
-}
+int x = 5

@@ -108,6 +108,24 @@ Features added and tested in stages: basic functions → parameters → statemen
 
 -   Incremental tests per feature
 -   Dedicated valid/invalid programs
+-   Current sample inputs live in the `tests/` directory:
+    -   [tests/test01_minimal.mc](tests/test01_minimal.mc)
+    -   [tests/test02_function_params.mc](tests/test02_function_params.mc)
+    -   [tests/test03_variables.mc](tests/test03_variables.mc)
+    -   [tests/test04_expressions.mc](tests/test04_expressions.mc)
+    -   [tests/test05_if_else.mc](tests/test05_if_else.mc)
+    -   [tests/test06_dangling_else.mc](tests/test06_dangling_else.mc)
+    -   [tests/test07_while.mc](tests/test07_while.mc)
+    -   [tests/test08_do_while.mc](tests/test08_do_while.mc)
+    -   [tests/test09_for.mc](tests/test09_for.mc)
+    -   [tests/test10_break.mc](tests/test10_break.mc)
+    -   [tests/test11*function_call.mc*](tests/test11_function_call.mc_)
+    -   [tests/test12*string.mc*](tests/test12_string.mc_)
+    -   [tests/test13_missing_semicolon.mc](tests/test13_missing_semicolon.mc)
+    -   [tests/test14_bad_params.mc](tests/test14_bad_params.mc)
+    -   [tests/test15_invalid_expressions.mc](tests/test15_invalid_expressions.mc)
+    -   [tests/test16_unmatched_brace.mc](tests/test16_unmatched_brace.mc)
+    -   [tests/test17_unknown_char.mc](tests/test17_unknown_char.mc)
 
 ```c
 int main() {
@@ -128,3 +146,13 @@ int main( {
 ```
 
 The parser accepts valid code and reports syntax errors for invalid constructs.
+
+### 5.3 Running the Parser
+
+Build the project (using `make` or your preferred build command), then feed a test file to the parser:
+
+```bash
+./parser < tests/test07_while.mc
+```
+
+Replace `tests/test07_while.mc` with any input file under `tests/` to run the other incremental cases.
